@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 namespace SpaceTime.Api
 {
@@ -21,6 +22,9 @@ namespace SpaceTime.Api
 			services
 				.AddMvc()
 				.SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+			services
+				.AddHealthChecks();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -32,6 +36,7 @@ namespace SpaceTime.Api
 			}
 
 			app
+				.UseHealthChecks("/health")
 				.UseMvc();
 		}
 	}
